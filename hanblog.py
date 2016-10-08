@@ -45,9 +45,8 @@ def getblog(blogurl) :
             pass
         else :
             print 'filename ==== ', unicode(filename, "utf-8")
-            # reg2 = u'px.>\r\n([\u4e00-\u9fa5]+)<.DIV>'.encode('cp936')
-            reg2 = u'(.*)<.DIV>'
-            blogreg = re.compile(reg2)
+            reg2 = u'<div STYLE=.min-height:22px.>(.*?)<.DIV>.<div STYLE="min-height:22px">.<br.*?<.DIV>'
+            blogreg = re.compile(reg2, re.S)
             blog = re.findall(blogreg, blogcontent)
             print ' blogreg === ' , blogreg , ' == blog == ', blog
             content = ''
