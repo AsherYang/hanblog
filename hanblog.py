@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#coding:utf-8
+#_*_coding:utf-8_*_
 
 import urllib
 import re
@@ -39,20 +39,23 @@ def getblog(blogurl) :
         pass
     else :
         os.mkdir(filepath)
+    ## 每次获取到的titles 都是一个值
     for filename in titles :
         if filename == '.' :
             pass
         else :
-            print 'filename ==== ', filename
-        #reg2 = r'div.*>(.*)<.div>'
-        #blogreg = re.compile(reg2)
-        #blog = re.findall(blogreg, blogcontent)
-        #content = ''
-        #for i in blog :
-        #    content = content + i
-        #    print 'content === ',  content
-        #    print 'downloading...', blog
-        open(filepath + os.path.sep + filename + '.txt', 'w+')
+            print 'filename ==== ', unicode(filename, "utf-8")
+            # reg2 = u'px.>\r\n([\u4e00-\u9fa5]+)<.DIV>'.encode('cp936')
+            reg2 = u'(.*)<.DIV>'
+            blogreg = re.compile(reg2)
+            blog = re.findall(blogreg, blogcontent)
+            print ' blogreg === ' , blogreg , ' == blog == ', blog
+            content = ''
+            for i in blog :
+                content = content + i + '\r\n'
+                print 'content === ',  content
+                print 'downloading...', blog
+                open(filepath + os.path.sep + unicode(filename, "utf-8")   + '.txt', 'w+').write(content)
         #time.sleep(10)    
 
 if __name__ == '__main__' :
